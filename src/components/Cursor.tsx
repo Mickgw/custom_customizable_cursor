@@ -5,16 +5,17 @@ const Cursor = ({ className, children }: any) => {
     const { x, y } = useMousePosition();
     return (
         <motion.div
-            initial={{ scale: 0 }}
+            initial={{ scale: 0, opacity: 0 }}
             animate={{
                 scale: 1,
+                opacity: 1,
                 transition: {
                     duration: 0.3,
                 },
                 x: -48,
                 y: -48,
             }}
-            exit={{ scale: 0 }}
+            exit={{ scale: 0, opacity: 0 }}
             style={{ left: x, top: y }}
             className={`cursor ${className}`}
         >
