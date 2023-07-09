@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Define your custom heading sizes
+$heading-1-size: 4rem; // Size for h1 tag
+$heading-2-size: 2.2rem; // Size for h2 tag
+$heading-3-size: 1.5rem; // Size for h3 tag
+$heading-4-size: 1.25rem; // Size for h4 tag
+$heading-5-size: 1rem; // Size for h5 tag
+$heading-6-size: 0.875rem; // Size for h6 tag
+
+.container {
+    margin-inline: auto;
+}
+
+// Apply the sizes to the respective heading tags
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+    margin-top: 0; // Reset default margins if needed
+    margin-bottom: 0; // Reset default margins if needed
+}
+
+h1 {
+    font-size: $heading-1-size;
+}
+
+h2 {
+    font-size: $heading-2-size;
+}
+
+h3 {
+    font-size: $heading-3-size;
+}
+
+h4 {
+    font-size: $heading-4-size;
+}
+
+h5 {
+    font-size: $heading-5-size;
+}
+
+h6 {
+    font-size: $heading-6-size;
+}
+
+.container {
+    margin-inline: auto;
+}
+
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 96px;
+    height: 96px;
+    background-color: #000;
+    border-radius: 100%;
+    z-index: 9999;
+    pointer-events: none; /* Add this line */
+}
