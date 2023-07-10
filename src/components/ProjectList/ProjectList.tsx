@@ -7,6 +7,16 @@ import Cursor from "../Cursor";
 const ProjectList = () => {
     const { cursorType } = useContext(CursorContext);
 
+    const { cursorChangeHandler } = useContext(CursorContext);
+
+    const handleMouseEnter = (cursorType: string) => {
+        cursorChangeHandler(cursorType);
+    };
+
+    const handleMouseLeave = () => {
+        cursorChangeHandler("");
+    };
+
     const projects = [
         {
             title: "Project 1",
@@ -28,20 +38,27 @@ const ProjectList = () => {
         },
     ];
 
-    console.log("cursorType = ", cursorType);
-
     return (
         <div className="container py-20 flex flex-col">
             <AnimatePresence>
                 {cursorType === "overListItem" && (
-                    <Cursor className="flex items-center justify-center text-white font-bold text-[20px]">
+                    <Cursor
+                        className="rounded-full w-[96px] aspect-square bg-black flex items-center justify-center text-white font-bold text-[20px]"
+                        xOffset={-48}
+                        yOffset={-48}
+                    >
                         view
                     </Cursor>
                 )}
             </AnimatePresence>
 
             {projects?.map((project, index) => (
-                <ListItem project={project} key={index} index={index} />
+                <ListItem
+                    project={project}
+                    key={index}
+                    onMouseEnter={() => handleMouseEnter("overListItem")}
+                    onMouseLeave={handleMouseLeave}
+                />
             ))}
         </div>
     );

@@ -53,15 +53,3 @@ h6 {
 .container {
     margin-inline: auto;
 }
-
-.cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 96px;
-    height: 96px;
-    background-color: #000;
-    border-radius: 100%;
-    z-index: 9999;
-    pointer-events: none; /* Add this line */
-}

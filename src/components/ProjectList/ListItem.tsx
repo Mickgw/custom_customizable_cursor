@@ -1,17 +1,18 @@
-import { useContext } from "react";
-import { CursorContext } from "../../context/CursorContext";
+interface ListItem {
+    project?: any;
+    onMouseEnter?: void;
+    onMouseLeave?: void;
+}
 
-const ListItem = ({ project } : any) => {
-    const { cursorChangeHandler } = useContext(CursorContext);
-
+const ListItem = ({ project, onMouseEnter, onMouseLeave }: any) => {
     return (
         <a
             href="/"
             className="px-10 h-[100px] border-b-[3px] text-black hover:text-slate-300 hover:px-12 border-black flex justify-between items-center transition-all duration-300 ease-in-out"
             onMouseEnter={() => {
-                cursorChangeHandler("overListItem");
+                onMouseEnter();
             }}
-            onMouseLeave={() => cursorChangeHandler("")}
+            onMouseLeave={() => onMouseLeave()}
         >
             <h2 className="!font-normal">{project?.title}</h2>
             <svg
