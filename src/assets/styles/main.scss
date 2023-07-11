@@ -10,6 +10,10 @@ $heading-4-size: 1.25rem; // Size for h4 tag
 $heading-5-size: 1rem; // Size for h5 tag
 $heading-6-size: 0.875rem; // Size for h6 tag
 
+body {
+    background-color: white;
+}
+
 .container {
     margin-inline: auto;
 }

@@ -8,13 +8,13 @@ const ListItem = ({ project, onMouseEnter, onMouseLeave }: any) => {
     return (
         <a
             href="/"
-            className="px-10 h-[100px] border-b-[3px] text-black hover:text-slate-300 hover:px-12 border-black flex justify-between items-center transition-all duration-300 ease-in-out"
+            className="px-10 h-[100px] border-b-[1px] text-black hover:text-slate-300 hover:px-12 border-black flex justify-between items-center transition-all duration-300 ease-in-out"
             onMouseEnter={() => {
                 onMouseEnter();
             }}
             onMouseLeave={() => onMouseLeave()}
         >
-            <h2 className="!font-normal">{project?.title}</h2>
+            <h2 className="font-light">{project?.title}</h2>
             <svg
                 className="w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"

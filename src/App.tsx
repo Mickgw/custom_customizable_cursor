@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import ProjectList from "./components/ProjectList/ProjectList";
 
@@ -6,16 +7,19 @@ function App() {
         <>
             <Header />
             <main>
-                <div className="container py-20"></div>
-                <ProjectList />
-                <ProjectList />
+                <div className="container pt-32">
+                    <h2 className="font-light">
+                        Behold, my labor of cursor love! I've brewed a pixelated
+                        marvel, brimming with charm and zest. It dances across
+                        your screen with a mischievous wink, optimized for
+                        nimble clicks and whimsical travels. And fear not, dear
+                        user, for I've sprinkled it with customization magic,
+                        allowing your cursor dreams to run wild!
+                    </h2>
+                </div>
                 <ProjectList />
             </main>
-            <footer className="h-[400px]">
-                <div className="container">
-                    <h2>Footer</h2>
-                </div>
-            </footer>
+            <Footer />
         </>
     );
 }
