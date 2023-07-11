@@ -1,8 +1,4 @@
 
-interface CursorConfigProps {
-    cursorWidth: number;
-    cursorHeight: number;
-}
 
 export function getCursorXoffset(cursorWidth : number) {
     let cursorXoffset = cursorWidth / 2;

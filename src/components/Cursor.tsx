@@ -10,14 +10,7 @@ interface CursorProps {
     children?: React.ReactNode;
 }
 
-const Cursor = ({
-    className,
-    cursorWidth,
-    cursorHeight,
-    xOffset,
-    yOffset,
-    children,
-}: CursorProps) => {
+const Cursor = ({ className, xOffset, yOffset, children }: CursorProps) => {
     const { x, y } = useMousePosition();
 
     if (x === 0 || y === 0) {
