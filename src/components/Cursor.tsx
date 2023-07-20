@@ -5,8 +5,8 @@ interface CursorProps {
     className?: string;
     cursorWidth?: number;
     cursorHeight?: number;
-    xOffset?: number;
-    yOffset?: number;
+    xOffset?: any;
+    yOffset?: any;
     children?: React.ReactNode;
 }
 
@@ -35,7 +35,7 @@ const Cursor = ({ className, xOffset, yOffset, children }: CursorProps) => {
                 left: x,
                 top: y,
             }}
-            className={`fixed pointer-events-none ${className}`}
+            className={`cursor ${className}`}
         >
             {children}
         </motion.div>

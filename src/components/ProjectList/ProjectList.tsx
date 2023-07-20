@@ -1,7 +1,7 @@
 import ListItem from "./ListItem";
 import { CursorContext } from "../../context/CursorContext";
 import { useContext, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
 import Cursor from "../Cursor";
 import CursorPhotoAlbumThumbnail from "./CursorPhotoAlbumThumbnail";
@@ -19,23 +19,38 @@ const ProjectList = () => {
     const { cursorChangeHandler } = useContext(CursorContext);
     const [activePhotoAlbumHover, setActivePhotoAlbumHover] = useState(-1);
 
+    //Cursor element dimensions
+    const cursorElementWidth = 450;
+    const cursorElementHeight = 350;
+
     const getCursorPhotoAlbumThumbnail = () => {
+        let cursorPhotoAlbumThumbnail;
+
         switch (activePhotoAlbumHover as number) {
             case 0:
-                return <CursorPhotoAlbumThumbnail thumbnail={album1thumb} />;
+                cursorPhotoAlbumThumbnail = album1thumb;
+                break;
             case 1:
-                return <CursorPhotoAlbumThumbnail thumbnail={album2thumb} />;
+                cursorPhotoAlbumThumbnail = album2thumb;
+                break;
+
             case 2:
-                return <CursorPhotoAlbumThumbnail thumbnail={album3thumb} />;
+                cursorPhotoAlbumThumbnail = album3thumb;
+                break;
             case 3:
-                return <CursorPhotoAlbumThumbnail thumbnail={album4thumb} />;
+                cursorPhotoAlbumThumbnail = album4thumb;
+                break;
             case 4:
-                return <CursorPhotoAlbumThumbnail thumbnail={album5thumb} />;
+                cursorPhotoAlbumThumbnail = album5thumb;
+                break;
             case 5:
-                return <CursorPhotoAlbumThumbnail thumbnail={album6thumb} />;
+                cursorPhotoAlbumThumbnail = album6thumb;
+                break;
             default:
                 return null;
         }
+
+        return cursorPhotoAlbumThumbnail;
     };
 
     const handleMouseEnter = (cursorType: string) => {
@@ -78,17 +93,38 @@ const ProjectList = () => {
             <AnimatePresence>
                 {cursorType === "overListItem" && (
                     <Cursor
-                        className="w-[350px] h-[250px] bg-black"
-                        xOffset={getCursorXoffset(350)}
-                        yOffset={getCursorYoffset(250)}
+                        className={`w-[450px] h-[350px] rounded-xl overflow-hidden`}
+                        xOffset={getCursorXoffset(cursorElementWidth)}
+                        yOffset={getCursorYoffset(cursorElementHeight)}
                     >
                         <div className="relative w-full h-full flex items-center justify-center">
                             <AnimatePresence>
-                                {getCursorPhotoAlbumThumbnail()}
+                                <motion.img
+                                    key={activePhotoAlbumHover}
+                                    initial={{
+                                        y: -cursorElementHeight + 10,
+                                    }}
+                                    animate={{
+                                        y: 0,
+                                        transition: {
+                                            duration: 0.7,
+                                            ease: [0.6, 0.2, 0.25, 1],
+                                        },
+                                    }}
+                                    exit={{
+                                        y: cursorElementHeight - 10,
+                                        transition: {
+                                            duration: 0.7,
+                                            ease: [0.6, 0.2, 0.25, 1],
+                                        },
+                                    }}
+                                    src={
+                                        getCursorPhotoAlbumThumbnail() as string
+                                    }
+                                    alt="photo_album_thumbnail"
+                                    className="absolute left-0 top-0 w-full h-full object-cover"
+                                />
                             </AnimatePresence>
-                            <div className="relative flex items-center justify-center bg-black mix-blend-difference text-[22px] font-bold">
-                                view
-                            </div>
                         </div>
                     </Cursor>
                 )}

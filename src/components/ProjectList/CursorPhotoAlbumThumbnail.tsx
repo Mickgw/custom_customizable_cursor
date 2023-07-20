@@ -1,20 +1,31 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
-const CursorPhotoAlbumThumbnail = ({ thumbnail }: any) => {
+const CursorPhotoAlbumThumbnail = ({
+    thumbnail,
+    cursorElementHeight,
+    uniqueKey,
+}: any) => {
     return (
-        <motion.img
-            initial={{ opacity: 0 }}
-            animate={{
-                opacity: 1,
-                transition: {
-                    duration: 0.15,
-                },
-            }}
-            exit={{ opacity: 0 }}
-            src={thumbnail}
-            alt="photo_album_thumbnail"
-            className="absolute left-0 top-0 w-full h-full object-cover"
-        />
+        <AnimatePresence key={uniqueKey}>
+            <motion.img
+                initial={{ y: -cursorElementHeight }}
+                animate={{
+                    y: 0,
+                    transition: {
+                        delay: 0.3,
+                        duration: 0.3,
+                        ease: [0.6, 0.2, 0.25, 1],
+                    },
+                }}
+                exit={{
+                    y: cursorElementHeight,
+                    transition: { duration: 0.23, ease: [0.6, 0.2, 0.25, 1] },
+                }}
+                src={thumbnail}
+                alt="photo_album_thumbnail"
+                className="absolute left-0 top-0 w-full h-full object-cover"
+            />
+        </AnimatePresence>
     );
 };
 

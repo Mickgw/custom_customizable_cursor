@@ -57,3 +57,8 @@ h6 {
 .container {
     margin-inline: auto;
 }
+
+.cursor {
+    position: fixed;
+    pointer-events: none;
+}

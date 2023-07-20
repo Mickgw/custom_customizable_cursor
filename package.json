@@ -15,7 +15,8 @@
     "framer-motion": "^10.12.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.63.6"
+    "sass": "^1.63.6",
+    "swiper": "^10.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
