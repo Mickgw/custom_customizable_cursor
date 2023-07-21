@@ -1,10 +1,11 @@
 import ListItem from "./ListItem";
 import { CursorContext } from "../../context/CursorContext";
-import { useContext, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useContext, useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
 import Cursor from "../Cursor";
-import CursorPhotoAlbumThumbnail from "./CursorPhotoAlbumThumbnail";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/bundle";
 
 //Thumbnails
 import album1thumb from "../../assets/images/DSC00073-min.jpg";
@@ -18,48 +19,14 @@ const ProjectList = () => {
     const { cursorType } = useContext(CursorContext);
     const { cursorChangeHandler } = useContext(CursorContext);
     const [activePhotoAlbumHover, setActivePhotoAlbumHover] = useState(-1);
+    const [swiperInstance, setSwiperInstance] = useState<any>(null);
 
-    //Cursor element dimensions
-    const cursorElementWidth = 450;
-    const cursorElementHeight = 350;
-
-    const getCursorPhotoAlbumThumbnail = () => {
-        let cursorPhotoAlbumThumbnail;
-
-        switch (activePhotoAlbumHover as number) {
-            case 0:
-                cursorPhotoAlbumThumbnail = album1thumb;
-                break;
-            case 1:
-                cursorPhotoAlbumThumbnail = album2thumb;
-                break;
-
-            case 2:
-                cursorPhotoAlbumThumbnail = album3thumb;
-                break;
-            case 3:
-                cursorPhotoAlbumThumbnail = album4thumb;
-                break;
-            case 4:
-                cursorPhotoAlbumThumbnail = album5thumb;
-                break;
-            case 5:
-                cursorPhotoAlbumThumbnail = album6thumb;
-                break;
-            default:
-                return null;
+    // The useEffect hook to set the Swiper instance when it's available
+    useEffect(() => {
+        if (swiperInstance && activePhotoAlbumHover >= 0) {
+            swiperInstance.slideTo(activePhotoAlbumHover, 600);
         }
-
-        return cursorPhotoAlbumThumbnail;
-    };
-
-    const handleMouseEnter = (cursorType: string) => {
-        cursorChangeHandler(cursorType);
-    };
-
-    const handleMouseLeave = () => {
-        cursorChangeHandler("");
-    };
+    }, [activePhotoAlbumHover, swiperInstance]);
 
     const projects = [
         {
@@ -88,43 +55,53 @@ const ProjectList = () => {
         },
     ];
 
+    //Cursor element dimensions
+    const cursorElementWidth = 550;
+    const cursorElementHeight = 350;
+
+    const handleMouseEnter = (cursorType: string) => {
+        cursorChangeHandler(cursorType);
+    };
+
+    const handleMouseLeave = () => {
+        cursorChangeHandler("");
+    };
+
     return (
         <div className="container py-52 flex flex-col">
             <AnimatePresence>
                 {cursorType === "overListItem" && (
                     <Cursor
-                        className={`w-[450px] h-[350px] rounded-xl overflow-hidden`}
+                        className={`w-[550px] h-[350px] rounded-xl overflow-hidden`}
                         xOffset={getCursorXoffset(cursorElementWidth)}
                         yOffset={getCursorYoffset(cursorElementHeight)}
                     >
-                        <div className="relative w-full h-full flex items-center justify-center">
-                            <AnimatePresence>
-                                <motion.img
-                                    key={activePhotoAlbumHover}
-                                    initial={{
-                                        y: -cursorElementHeight + 10,
-                                    }}
-                                    animate={{
-                                        y: 0,
-                                        transition: {
-                                            duration: 0.7,
-                                            ease: [0.6, 0.2, 0.25, 1],
-                                        },
-                                    }}
-                                    exit={{
-                                        y: cursorElementHeight - 10,
-                                        transition: {
-                                            duration: 0.7,
-                                            ease: [0.6, 0.2, 0.25, 1],
-                                        },
-                                    }}
-                                    src={
-                                        getCursorPhotoAlbumThumbnail() as string
-                                    }
-                                    alt="photo_album_thumbnail"
-                                    className="absolute left-0 top-0 w-full h-full object-cover"
-                                />
-                            </AnimatePresence>
+                        <div className="relative w-full h-full">
+                            <div className="z-20 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-20 aspect-square rounded-full bg-slate-700 text-white tracking-wide flex items-center justify-center">
+                                view
+                            </div>
+                            <Swiper
+                                spaceBetween={0}
+                                slidesPerView={1}
+                                direction={"vertical"}
+                                initialSlide={activePhotoAlbumHover}
+                                onSwiper={(swiper) => setSwiperInstance(swiper)}
+                                className="z-10 relative w-full h-full"
+                            >
+                                {projects.map((project: any, index: number) => (
+                                    <SwiperSlide
+                                        key={index}
+                                        className="relative w-full h-full"
+                                    >
+                                        <img
+                                            src={project?.thumbnail}
+                                            alt="photo_album_thumbnail"
+                                            loading="lazy"
+                                            className="absolute left-0 top-0 w-full h-full object-cover"
+                                        />
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </Cursor>
                 )}

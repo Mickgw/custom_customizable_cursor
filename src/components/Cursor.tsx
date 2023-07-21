@@ -13,6 +13,10 @@ interface CursorProps {
 const Cursor = ({ className, xOffset, yOffset, children }: CursorProps) => {
     const { x, y } = useMousePosition();
 
+    // const lerp = (start: number, end: number, amt: number) => {
+    //     return (1 - amt) * start + amt * end;
+    // };
+
     if (x === 0 || y === 0) {
         return null; // Render nothing when xPos and yPos is 0
     }
@@ -30,6 +34,7 @@ const Cursor = ({ className, xOffset, yOffset, children }: CursorProps) => {
                     duration: 0.3,
                 },
             }}
+            transition={{}}
             exit={{ scale: 0 }}
             style={{
                 left: x,
