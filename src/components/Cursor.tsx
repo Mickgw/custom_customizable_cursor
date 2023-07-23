@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 interface CursorProps {
     className?: string;
+    style?: any;
     cursorWidth?: number;
     cursorHeight?: number;
     xOffset?: any;
@@ -10,7 +11,13 @@ interface CursorProps {
     children?: React.ReactNode;
 }
 
-const Cursor = ({ className, xOffset, yOffset, children }: CursorProps) => {
+const Cursor = ({
+    className,
+    style,
+    xOffset,
+    yOffset,
+    children,
+}: CursorProps) => {
     const { x, y } = useMousePosition();
 
     // const lerp = (start: number, end: number, amt: number) => {
@@ -39,6 +46,7 @@ const Cursor = ({ className, xOffset, yOffset, children }: CursorProps) => {
             style={{
                 left: x,
                 top: y,
+                ...style,
             }}
             className={`cursor ${className}`}
         >

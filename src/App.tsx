@@ -1,5 +1,6 @@
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import ProjectCardGrid from "./components/ProjectCardGrid/ProjectCardGrid";
 import ProjectList from "./components/ProjectList/ProjectList";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                     </h2>
                 </div>
                 <ProjectList />
+                <ProjectCardGrid />
             </main>
             <Footer />
         </>
