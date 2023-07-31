@@ -2,7 +2,7 @@ import { CursorContext } from "../../context/CursorContext";
 import { useContext } from "react";
 import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
 import Cursor from "../Cursor";
-import { AnimatePresence } from "framer-motion";
+// import { AnimatePresence } from "framer-motion";
 
 const ProjectCard = ({ project }: any) => {
     const { cursorType } = useContext(CursorContext);
@@ -13,21 +13,20 @@ const ProjectCard = ({ project }: any) => {
 
     return (
         <>
-            <AnimatePresence>
-                {cursorType === "projectCard" && (
-                    <Cursor
-                        className="z-[100] w-[75px] aspect-square flex bg-slate-100 items-center justify-center rounded-full"
-                        // style={{
-                        //     backgroundColor: "red",
-                        //     mixBlendMode: "difference",
-                        // }}
-                        xOffset={getCursorXoffset(cursorElementWidth)}
-                        yOffset={getCursorYoffset(cursorElementHeight)}
-                    >
-                        <span className="font-bold">view</span>
-                    </Cursor>
-                )}
-            </AnimatePresence>
+            {cursorType === "projectCard" && (
+                <Cursor
+                    className="z-[100] w-[75px] aspect-square flex bg-slate-100 items-center justify-center rounded-full"
+                    // style={{
+                    //     backgroundColor: "red",
+                    //     mixBlendMode: "difference",
+                    // }}
+                    xOffset={getCursorXoffset(cursorElementWidth)}
+                    yOffset={getCursorYoffset(cursorElementHeight)}
+                >
+                    <span className="font-bold">view</span>
+                </Cursor>
+            )}
+
             <a
                 className="w-full aspect-[3/4] overflow-hidden relative group"
                 onMouseEnter={() => cursorChangeHandler("projectCard")}
