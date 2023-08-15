@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
-        <footer className="h-[50px] pb-20">
-            <div className="container flex items-center justify-between text-[15px]">
+        <footer className="h-[100px] rounded-t-[50px] overflow-hidden drop-shadow-lg bg-white -mt-[50px]">
+            <div className="h-full container flex items-center justify-between text-[15px]">
                 <span className="font-light">{new Date().getFullYear()}</span>
                 <a
                     href="https://github.com/Mickgw"

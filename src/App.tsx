@@ -3,7 +3,16 @@ import Header from "./components/Header";
 import ProjectCardGrid from "./components/ProjectCardGrid/ProjectCardGrid";
 import ProjectList from "./components/ProjectList/ProjectList";
 
+import { useEffect } from "react";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 function App() {
+    useEffect(() => {
+        AOS.init();
+    }, []);
+
     return (
         <>
             <Header />

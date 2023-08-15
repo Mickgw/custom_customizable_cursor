@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@studio-freight/react-lenis": "^0.0.22",
+    "aos": "^2.3.4",
     "framer-motion": "^10.12.18",
     "gsap": "^3.12.2",
     "react": "^18.2.0",
@@ -20,6 +21,7 @@
     "swiper": "^10.0.4"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.4",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
