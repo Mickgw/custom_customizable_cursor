@@ -1,15 +1,15 @@
 import { CursorContext } from "../../context/CursorContext";
 import { useContext } from "react";
-import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
-import Cursor from "../Cursor";
-import { AnimatePresence } from "framer-motion";
+// import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
+// import Cursor from "../Cursor";
+// import { AnimatePresence } from "framer-motion";
 
 const ProjectCard = ({ project }: any) => {
-    const { cursorType } = useContext(CursorContext);
+    // const { cursorType } = useContext(CursorContext);
     const { cursorChangeHandler } = useContext(CursorContext);
 
-    const cursorElementWidth = 75;
-    const cursorElementHeight = cursorElementWidth;
+    // const cursorElementWidth = 75;
+    // const cursorElementHeight = cursorElementWidth;
 
     return (
         <>
