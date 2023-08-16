@@ -47,7 +47,7 @@ const ProjectCard = ({ project }: any) => {
                 </div>
                 <div className="opacity-0 group-hover:opacity-50 absolute inset-0 w-full h-full bg-black transition-all duration-500 ease-in-out" />
                 <div className="z-10 absolute left-6 top-6">
-                    <h3 className="opacity-0 group-hover:opacity-100 mb-4 text-white lowercase !text-[34px] transition-all duration-500 ease-in-out">
+                    <h3 className="opacity-0 group-hover:opacity-100 mb-4 text-white !text-[34px] transition-all duration-500 ease-in-out">
                         {project?.title}
                     </h3>
                     <h5 className="opacity-0 group-hover:opacity-100 z-10 text-white lowercase !font-thin transition-all duration-500 ease-in-out">

@@ -18,7 +18,7 @@ function App() {
             <Header />
             <main>
                 <div className="container pt-32">
-                    <h2 className="font-light">
+                    <h2 className="font-light mb-32">
                         Behold, my labor of cursor love! I've brewed a pixelated
                         marvel, brimming with charm and zest. It dances across
                         your screen with a mischievous wink, optimized for
@@ -26,6 +26,9 @@ function App() {
                         user, for I've sprinkled it with customization magic,
                         allowing your cursor dreams to run wild!
                     </h2>
+                    <h1 className="text-center mb-32">
+                        Beneath are a couple of examples.
+                    </h1>
                 </div>
                 <ProjectList />
                 <ProjectCardGrid />

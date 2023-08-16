@@ -68,56 +68,95 @@ const ProjectList = () => {
     };
 
     return (
-        <div className="container py-52 flex flex-col">
-            <AnimatePresence>
-                {cursorType === "overListItem" && (
-                    <Cursor
-                        className={`w-[550px] h-[350px] rounded-xl overflow-hidden`}
-                        xOffset={getCursorXoffset(cursorElementWidth)}
-                        yOffset={getCursorYoffset(cursorElementHeight)}
-                    >
-                        <div className="relative w-full h-full">
-                            <div className="z-20 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-20 aspect-square rounded-full bg-slate-700 text-white tracking-wide flex items-center justify-center">
-                                view
+        <div className="border-t-[1px]">
+            <div className="container">
+                <AnimatePresence>
+                    {cursorType === "overListItem" && (
+                        <Cursor
+                            className={`w-[550px] h-[350px] rounded-xl overflow-hidden`}
+                            xOffset={getCursorXoffset(cursorElementWidth)}
+                            yOffset={getCursorYoffset(cursorElementHeight)}
+                        >
+                            <div className="relative w-full h-full">
+                                <div className="z-20 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-20 aspect-square rounded-full bg-slate-700 text-white tracking-wide flex items-center justify-center">
+                                    view
+                                </div>
+                                <Swiper
+                                    spaceBetween={0}
+                                    slidesPerView={1}
+                                    direction={"vertical"}
+                                    initialSlide={activePhotoAlbumHover}
+                                    onSwiper={(swiper) =>
+                                        setSwiperInstance(swiper)
+                                    }
+                                    className="z-10 relative w-full h-full"
+                                >
+                                    {projects.map(
+                                        (project: any, index: number) => (
+                                            <SwiperSlide
+                                                key={index}
+                                                className="relative w-full h-full"
+                                            >
+                                                <img
+                                                    src={project?.thumbnail}
+                                                    alt="photo_album_thumbnail"
+                                                    loading="lazy"
+                                                    className="absolute left-0 top-0 w-full h-full object-cover"
+                                                />
+                                            </SwiperSlide>
+                                        )
+                                    )}
+                                </Swiper>
                             </div>
-                            <Swiper
-                                spaceBetween={0}
-                                slidesPerView={1}
-                                direction={"vertical"}
-                                initialSlide={activePhotoAlbumHover}
-                                onSwiper={(swiper) => setSwiperInstance(swiper)}
-                                className="z-10 relative w-full h-full"
-                            >
-                                {projects.map((project: any, index: number) => (
-                                    <SwiperSlide
-                                        key={index}
-                                        className="relative w-full h-full"
-                                    >
-                                        <img
-                                            src={project?.thumbnail}
-                                            alt="photo_album_thumbnail"
-                                            loading="lazy"
-                                            className="absolute left-0 top-0 w-full h-full object-cover"
-                                        />
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-                        </div>
-                    </Cursor>
-                )}
-            </AnimatePresence>
+                        </Cursor>
+                    )}
+                </AnimatePresence>
 
-            {projects?.map((project: any, index: number) => (
-                <ListItem
-                    project={project}
-                    key={index}
-                    onMouseEnter={() => {
-                        handleMouseEnter("overListItem"),
-                            setActivePhotoAlbumHover(index);
-                    }}
-                    onMouseLeave={handleMouseLeave}
-                />
-            ))}
+                <div className="mt-32 flex flex-row-reverse gap-12">
+                    <div className="w-1/2 flex justify-end">
+                        <div className="w-[60px] h-[60px] rounded-full bg-slate-500 flex items-center justify-center">
+                            <span className="text-[22px] font-bold text-white">
+                                1
+                            </span>
+                        </div>
+                    </div>
+                    <div className="w-1/2">
+                        <h2 className="mb-8">Photo albums</h2>
+                        <p className="text-[20px] mb-4 font-thin">
+                            My cherished photo albums hold a treasure trove of
+                            memories. Each snapshot tells a story, capturing the
+                            essence of moments shared with loved ones and the
+                            beauty of life's journey. Flipping through the pages
+                            evokes nostalgia, reminding me of the laughter,
+                            love, and growth that fill my personal visual
+                            narrative.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="flex flex-col py-32">
+                    {projects?.map((project: any, index: number) => (
+                        <ListItem
+                            project={project}
+                            key={index}
+                            onMouseEnter={() => {
+                                handleMouseEnter("overListItem"),
+                                    setActivePhotoAlbumHover(index);
+                            }}
+                            onMouseLeave={handleMouseLeave}
+                        />
+                    ))}
+                </div>
+                <div className="flex justify-between items-center text-[24px] font-light mb-56">
+                    <span className="">above are highlighted photo albums</span>
+                    <a
+                        href="/"
+                        className="hover:opacity-70 transition-all duration-300 ease-in-out"
+                    >
+                        view more
+                    </a>
+                </div>
+            </div>
         </div>
     );
 };
