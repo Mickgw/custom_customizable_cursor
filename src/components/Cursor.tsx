@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import useMousePosition from "../hooks/useMousePosition";
-import { gsap, Power2 } from "gsap"; // Import Power2 easing
+import { gsap } from "gsap"; // Import Power2 easing
 
 interface CursorProps {
     className?: string;

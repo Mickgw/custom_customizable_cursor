@@ -4,7 +4,7 @@ import ProjectCardGrid from "./components/ProjectCardGrid/ProjectCardGrid";
 import ProjectList from "./components/ProjectList/ProjectList";
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -14,7 +14,7 @@ function App() {
         AOS.init();
     }, []);
 
-    const lenis = useLenis(({ scroll }: any) => {
+    useLenis(({}: any) => {
         // called every scroll
     });
 
