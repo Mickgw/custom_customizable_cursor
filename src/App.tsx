@@ -2,8 +2,9 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import ProjectCardGrid from "./components/ProjectCardGrid/ProjectCardGrid";
 import ProjectList from "./components/ProjectList/ProjectList";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -13,8 +14,12 @@ function App() {
         AOS.init();
     }, []);
 
+    const lenis = useLenis(({ scroll }: any) => {
+        // called every scroll
+    });
+
     return (
-        <>
+        <ReactLenis root>
             <Header />
             <main>
                 <div className="container pt-32">
@@ -34,7 +39,7 @@ function App() {
                 <ProjectCardGrid />
             </main>
             <Footer />
-        </>
+        </ReactLenis>
     );
 }
 

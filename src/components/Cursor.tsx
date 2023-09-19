@@ -1,17 +1,16 @@
+import React, { useEffect, useRef } from "react";
 import useMousePosition from "../hooks/useMousePosition";
-import { motion } from "framer-motion";
+import { gsap, Power2 } from "gsap"; // Import Power2 easing
 
 interface CursorProps {
     className?: string;
-    style?: any;
-    cursorWidth?: number;
-    cursorHeight?: number;
+    style?: React.CSSProperties;
     xOffset?: any;
     yOffset?: any;
     children?: React.ReactNode;
 }
 
-const Cursor = ({
+const Cursor: React.FC<CursorProps> = ({
     className,
     style,
     xOffset,
@@ -19,37 +18,46 @@ const Cursor = ({
     children,
 }: CursorProps) => {
     const { x, y } = useMousePosition();
+    const cursorRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (!cursorRef.current) return;
+
+        // Set up GSAP animations
+        const tl = gsap.timeline();
+
+        // Initial state
+        tl.set(cursorRef.current, {
+            x: x + xOffset,
+            y: y + yOffset,
+        });
+
+        return () => {
+            // Cleanup when component unmounts
+            tl.kill();
+        };
+    }, [x, y, xOffset, yOffset]);
 
     if (x === 0 || y === 0) {
-        return null; // Render nothing when xPos and yPos is 0
+        return null; // Render nothing when xPos and yPos are 0
     }
 
     return (
-        <motion.div
-            initial={{
-                scale: 0,
-                x: xOffset,
-                y: yOffset,
-            }}
-            animate={{
-                scale: 1,
-                transition: {
-                    duration: 0.3,
-                },
-            }}
-            transition={{}}
-            exit={{ scale: 0 }}
+        <div
+            ref={cursorRef}
             style={{
+                position: "fixed",
+                pointerEvents: "none",
                 left: 0,
                 top: 0,
-                translateX: x,
-                translateY: y,
+                transition: ".3s cubic-bezier(0.05,0.03,0.3,0.96)",
                 ...style,
             }}
             className={`cursor ${className}`}
         >
             {children}
-        </motion.div>
+        </div>
     );
 };
+
 export default Cursor;
