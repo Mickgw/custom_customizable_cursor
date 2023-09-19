@@ -76,6 +76,7 @@ const ProjectList = () => {
                             className={`w-[550px] h-[350px] rounded-xl overflow-hidden`}
                             xOffset={getCursorXoffset(cursorElementWidth)}
                             yOffset={getCursorYoffset(cursorElementHeight)}
+                            easingDuration={0.3}
                         >
                             <div className="relative w-full h-full">
                                 <div className="z-20 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-20 aspect-square rounded-full bg-slate-700 text-white tracking-wide flex items-center justify-center">

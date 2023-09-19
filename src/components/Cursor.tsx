@@ -7,6 +7,7 @@ interface CursorProps {
     style?: React.CSSProperties;
     xOffset?: any;
     yOffset?: any;
+    easingDuration?: number;
     children?: React.ReactNode;
 }
 
@@ -15,10 +16,12 @@ const Cursor: React.FC<CursorProps> = ({
     style,
     xOffset,
     yOffset,
+    easingDuration,
     children,
 }: CursorProps) => {
     const { x, y } = useMousePosition();
     const cursorRef = useRef<HTMLDivElement | null>(null);
+    const easingDurationFinal = easingDuration ? easingDuration : 0.2;
 
     useEffect(() => {
         if (!cursorRef.current) return;
@@ -50,7 +53,7 @@ const Cursor: React.FC<CursorProps> = ({
                 pointerEvents: "none",
                 left: 0,
                 top: 0,
-                transition: ".3s cubic-bezier(0.05,0.03,0.3,0.96)",
+                transition: `${easingDurationFinal}s cubic-bezier(0.05,0.03,0.3,0.96)`,
                 ...style,
             }}
             className={`cursor ${className}`}

@@ -19,7 +19,13 @@ function App() {
     });
 
     return (
-        <ReactLenis root>
+        <ReactLenis
+            root
+            options={{
+                duration: 1.5,
+                lerp: 1,
+            }}
+        >
             <Header />
             <main>
                 <div className="container pt-32">
