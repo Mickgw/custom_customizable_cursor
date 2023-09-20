@@ -8,14 +8,14 @@ const ProjectCard = ({ project }: any) => {
     const { cursorType } = useContext(CursorContext);
     const { cursorChangeHandler } = useContext(CursorContext);
 
-    const cursorElementWidth = 75;
+    const cursorElementWidth = 90;
     const cursorElementHeight = cursorElementWidth;
 
     return (
         <>
             <Cursor
                 name="project_card"
-                className="z-[100] w-[75px] aspect-square rounded-full overflow-hidden"
+                className="w-[90px] aspect-square flex items-center rounded-full z-[100]"
                 xOffset={getCursorXoffset(cursorElementWidth)}
                 yOffset={getCursorYoffset(cursorElementHeight)}
             >
@@ -31,7 +31,7 @@ const ProjectCard = ({ project }: any) => {
                                 },
                             }}
                             exit={{ opacity: 0, scale: 0 }}
-                            className="w-20 h-20 rounded-full bg-white z-10 flex items-center justify-center"
+                            className="relative w-full h-full border-0 rounded-full flex items-center justify-center bg-white mix-blend-difference"
                         >
                             <svg
                                 width="25px"
@@ -83,10 +83,6 @@ const ProjectCard = ({ project }: any) => {
             </Cursor>
 
             <a
-                data-aos="fade-up"
-                data-aos-offset="-100"
-                data-aos-duration="750"
-                data-aos-easing="ease-in-out"
                 className="w-full aspect-[3/4] overflow-hidden relative group rounded-2xl"
                 onMouseEnter={() => {
                     cursorChangeHandler("projectCard");

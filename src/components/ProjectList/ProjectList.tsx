@@ -8,12 +8,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 
 //Thumbnails
-import album1thumb from "../../assets/images/DSC00073-min.jpg";
-import album2thumb from "../../assets/images/DSC00208-min.jpg";
-import album3thumb from "../../assets/images/DSC00300-min.jpg";
-import album4thumb from "../../assets/images/DSC00586-min.jpg";
-import album5thumb from "../../assets/images/GP5-15-min.jpg";
-import album6thumb from "../../assets/images/GP5-21-min.jpg";
+// import album1thumb from "../../assets/images/DSC00073-min.jpg";
+// import album2thumb from "../../assets/images/DSC00208-min.jpg";
+// import album3thumb from "../../assets/images/DSC00300-min.jpg";
+// import album4thumb from "../../assets/images/DSC00586-min.jpg";
+// import album5thumb from "../../assets/images/GP5-15-min.jpg";
+// import album6thumb from "../../assets/images/GP5-21-min.jpg";
+
+import video1 from "../../assets/images/vid_1.mp4";
+import video2 from "../../assets/images/vid_2.mp4";
 
 const ProjectList = () => {
     const { cursorType } = useContext(CursorContext);
@@ -21,30 +24,57 @@ const ProjectList = () => {
     const [activePhotoAlbumHover, setActivePhotoAlbumHover] = useState(-1);
     const [swiperInstance, setSwiperInstance] = useState<any>(null);
 
+    // const projects = [
+    //     {
+    //         title: "Photo Album 1",
+    //         thumbnail: album1thumb,
+    //     },
+    //     {
+    //         title: "Photo Album 2",
+    //         thumbnail: album2thumb,
+    //     },
+    //     {
+    //         title: "Photo Album 3",
+    //         thumbnail: album3thumb,
+    //     },
+    //     {
+    //         title: "Photo Album 4",
+    //         thumbnail: album4thumb,
+    //     },
+    //     {
+    //         title: "Photo Album 5",
+    //         thumbnail: album5thumb,
+    //     },
+    //     {
+    //         title: "Photo Album 6",
+    //         thumbnail: album6thumb,
+    //     },
+    // ];
+
     const projects = [
         {
-            title: "Photo Album 1",
-            thumbnail: album1thumb,
+            title: "Video 1",
+            video: video1,
         },
         {
-            title: "Photo Album 2",
-            thumbnail: album2thumb,
+            title: "Video 2",
+            video: video2,
         },
         {
-            title: "Photo Album 3",
-            thumbnail: album3thumb,
+            title: "Video 1",
+            video: video1,
         },
         {
-            title: "Photo Album 4",
-            thumbnail: album4thumb,
+            title: "Video 2",
+            video: video2,
         },
         {
-            title: "Photo Album 5",
-            thumbnail: album5thumb,
+            title: "Video 1",
+            video: video1,
         },
         {
-            title: "Photo Album 6",
-            thumbnail: album6thumb,
+            title: "Video 2",
+            video: video2,
         },
     ];
 
@@ -86,7 +116,7 @@ const ProjectList = () => {
     };
 
     return (
-        <div className="border-t-[1px]">
+        <section>
             <div className="container">
                 <Cursor
                     name="project_list"
@@ -122,12 +152,24 @@ const ProjectList = () => {
                                                 key={index}
                                                 className="relative w-full h-full"
                                             >
-                                                <img
+                                                {/* <img
                                                     src={project?.thumbnail}
                                                     alt="photo_album_thumbnail"
                                                     loading="lazy"
                                                     className="absolute left-0 top-0 w-full h-full object-cover"
-                                                />
+                                                /> */}
+                                                <video
+                                                    width="100%"
+                                                    height="100%"
+                                                    autoPlay
+                                                    muted
+                                                    className="absolute inset-0 w-full h-full object-cover"
+                                                >
+                                                    <source
+                                                        src={project?.video}
+                                                        type="video/mp4"
+                                                    ></source>
+                                                </video>
                                             </SwiperSlide>
                                         )
                                     )}
@@ -136,28 +178,6 @@ const ProjectList = () => {
                         )}
                     </AnimatePresence>
                 </Cursor>
-
-                <div className="mt-32 flex flex-row-reverse gap-12">
-                    <div className="w-1/2 flex justify-end">
-                        <div className="w-[60px] h-[60px] rounded-full bg-slate-500 flex items-center justify-center">
-                            <span className="text-[22px] font-bold text-white">
-                                1
-                            </span>
-                        </div>
-                    </div>
-                    <div className="w-1/2">
-                        <h2 className="mb-8">Photo albums</h2>
-                        <p className="text-[20px] mb-4 font-thin">
-                            My cherished photo albums hold a treasure trove of
-                            memories. Each snapshot tells a story, capturing the
-                            essence of moments shared with loved ones and the
-                            beauty of life's journey. Flipping through the pages
-                            evokes nostalgia, reminding me of the laughter,
-                            love, and growth that fill my personal visual
-                            narrative.
-                        </p>
-                    </div>
-                </div>
 
                 <div className="flex flex-col py-32">
                     {projects?.map((project: any, index: number) => (
@@ -172,17 +192,8 @@ const ProjectList = () => {
                         />
                     ))}
                 </div>
-                <div className="flex justify-between items-center text-[24px] font-light mb-56">
-                    <span className="">above are highlighted photo albums</span>
-                    <a
-                        href="/"
-                        className="hover:opacity-70 transition-all duration-300 ease-in-out"
-                    >
-                        view more
-                    </a>
-                </div>
             </div>
-        </div>
+        </section>
     );
 };
 

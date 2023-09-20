@@ -36,9 +36,6 @@ function App() {
                         user, for I've sprinkled it with customization magic,
                         allowing your cursor dreams to run wild!
                     </h2>
-                    <h1 className="text-center mb-32">
-                        Beneath are a couple of examples.
-                    </h1>
                 </div>
                 <ProjectList />
                 <ProjectCardGrid />
