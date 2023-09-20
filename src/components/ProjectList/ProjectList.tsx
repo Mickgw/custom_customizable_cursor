@@ -1,7 +1,7 @@
 import ListItem from "./ListItem";
 import { CursorContext } from "../../context/CursorContext";
 import { useContext, useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
 import Cursor from "../Cursor";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,13 +20,6 @@ const ProjectList = () => {
     const { cursorChangeHandler } = useContext(CursorContext);
     const [activePhotoAlbumHover, setActivePhotoAlbumHover] = useState(-1);
     const [swiperInstance, setSwiperInstance] = useState<any>(null);
-
-    // The useEffect hook to set the Swiper instance when it's available
-    useEffect(() => {
-        if (swiperInstance && activePhotoAlbumHover >= 0) {
-            swiperInstance.slideTo(activePhotoAlbumHover, 600);
-        }
-    }, [activePhotoAlbumHover, swiperInstance]);
 
     const projects = [
         {
@@ -55,6 +48,31 @@ const ProjectList = () => {
         },
     ];
 
+    const animationProps = {
+        initial: {
+            scale: 0,
+            opacity: 0,
+        },
+        animate: {
+            scale: 1,
+            opacity: 1,
+            transition: {
+                duration: 0.3,
+            },
+        },
+        exit: {
+            scale: 0,
+            opacity: 0,
+        },
+    };
+
+    // The useEffect hook to set the Swiper instance when it's available
+    useEffect(() => {
+        if (swiperInstance && activePhotoAlbumHover >= 0) {
+            swiperInstance.slideTo(activePhotoAlbumHover, 600);
+        }
+    }, [activePhotoAlbumHover, swiperInstance]);
+
     //Cursor element dimensions
     const cursorElementWidth = 550;
     const cursorElementHeight = 350;
@@ -70,15 +88,21 @@ const ProjectList = () => {
     return (
         <div className="border-t-[1px]">
             <div className="container">
-                <AnimatePresence>
-                    {cursorType === "overListItem" && (
-                        <Cursor
-                            className={`w-[550px] h-[350px] rounded-xl overflow-hidden`}
-                            xOffset={getCursorXoffset(cursorElementWidth)}
-                            yOffset={getCursorYoffset(cursorElementHeight)}
-                            easingDuration={0.3}
-                        >
-                            <div className="relative w-full h-full">
+                <Cursor
+                    name="project_list"
+                    className={`w-[550px] h-[350px] rounded-xl overflow-hidden`}
+                    xOffset={getCursorXoffset(cursorElementWidth)}
+                    yOffset={getCursorYoffset(cursorElementHeight)}
+                    easingDuration={0.3}
+                >
+                    <AnimatePresence>
+                        {cursorType === "overListItem" && (
+                            <motion.div
+                                className="relative w-full h-full"
+                                initial={animationProps.initial}
+                                animate={animationProps.animate}
+                                exit={animationProps.exit}
+                            >
                                 <div className="z-20 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-20 aspect-square rounded-full bg-slate-700 text-white tracking-wide flex items-center justify-center">
                                     view
                                 </div>
@@ -108,10 +132,10 @@ const ProjectList = () => {
                                         )
                                     )}
                                 </Swiper>
-                            </div>
-                        </Cursor>
-                    )}
-                </AnimatePresence>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </Cursor>
 
                 <div className="mt-32 flex flex-row-reverse gap-12">
                     <div className="w-1/2 flex justify-end">

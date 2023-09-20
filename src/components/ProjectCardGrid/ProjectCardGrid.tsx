@@ -6,27 +6,7 @@ import project4thumb from "../../assets/images/GoodwoodDAY2-74-min.jpg";
 import project5thumb from "../../assets/images/GoodwoodDAY2-77-min.jpg";
 import project6thumb from "../../assets/images/GoodwoodDAY2-85-min.jpg";
 
-import { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
-
-gsap.registerPlugin(ScrollTrigger);
-
 const ProjectCardGrid = () => {
-    useEffect(() => {
-        gsap.to("#component", {
-            scrollTrigger: {
-                trigger: "#component",
-                start: "top-=1400 top", // Start when bottom of viewport hits top of component
-                end: "top-=250 top-=250",
-                scrub: 1,
-                // markers: true,
-            },
-            y: -250,
-            duration: 1,
-        });
-    }, []);
-
     const projects = [
         {
             title: "Goodwood FOS",
@@ -83,7 +63,7 @@ const ProjectCardGrid = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-8 gap-y-20">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-20 relative">
                     {projects?.map((project, index) => {
                         return <ProjectCard project={project} key={index} />;
                     })}

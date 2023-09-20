@@ -3,6 +3,7 @@ import useMousePosition from "../hooks/useMousePosition";
 import { gsap } from "gsap"; // Import Power2 easing
 
 interface CursorProps {
+    name?: string;
     className?: string;
     style?: React.CSSProperties;
     xOffset?: any;
@@ -12,6 +13,7 @@ interface CursorProps {
 }
 
 const Cursor: React.FC<CursorProps> = ({
+    name,
     className,
     style,
     xOffset,
@@ -26,23 +28,20 @@ const Cursor: React.FC<CursorProps> = ({
     useEffect(() => {
         if (!cursorRef.current) return;
 
-        // Set up GSAP animations
         const tl = gsap.timeline();
 
-        // Initial state
         tl.set(cursorRef.current, {
             x: x + xOffset,
             y: y + yOffset,
         });
 
         return () => {
-            // Cleanup when component unmounts
             tl.kill();
         };
     }, [x, y, xOffset, yOffset]);
 
     if (x === 0 || y === 0) {
-        return null; // Render nothing when xPos and yPos are 0
+        return null;
     }
 
     return (
@@ -56,7 +55,9 @@ const Cursor: React.FC<CursorProps> = ({
                 transition: `${easingDurationFinal}s cubic-bezier(0.05,0.03,0.3,0.96)`,
                 ...style,
             }}
-            className={`cursor ${className}`}
+            className={`cursor_${name ? `${name}_` : ""} ${
+                className && className
+            }`}
         >
             {children}
         </div>

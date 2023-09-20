@@ -22,8 +22,7 @@ function App() {
         <ReactLenis
             root
             options={{
-                duration: 1.5,
-                lerp: 1,
+                duration: 1,
             }}
         >
             <Header />
