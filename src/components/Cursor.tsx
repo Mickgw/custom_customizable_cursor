@@ -7,6 +7,7 @@ interface CursorProps {
     name: string; //required
     width: number; //required
     height: number; //required
+    zIndex?: number;
     style?: React.CSSProperties;
     easingDuration?: number;
     children?: React.ReactNode;
@@ -17,6 +18,7 @@ const Cursor: React.FC<CursorProps> = ({
     name,
     width,
     height,
+    zIndex,
     style,
     easingDuration,
     children,
@@ -53,6 +55,7 @@ const Cursor: React.FC<CursorProps> = ({
             style={{
                 position: "fixed",
                 pointerEvents: "none",
+                zIndex: zIndex,
                 left: 0,
                 top: 0,
                 width: width + "px",
