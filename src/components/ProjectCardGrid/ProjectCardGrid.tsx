@@ -30,11 +30,7 @@ const ProjectCardGrid = () => {
     ];
 
     return (
-        <div
-            id="project_list"
-            className="rounded-t-[50px] bg-black mt-32"
-            style={{ boxShadow: "0px -3px 24px -1px rgba(0,0,0,0.05)" }}
-        >
+        <div id="project_list" className="mt-32">
             <div className="container py-32">
                 <div className="grid grid-cols-2 gap-x-8 gap-y-20 relative">
                     {projects?.map((project, index) => {

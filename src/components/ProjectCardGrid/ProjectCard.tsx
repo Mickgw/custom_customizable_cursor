@@ -1,23 +1,21 @@
 import { CursorContext } from "../../context/CursorContext";
 import { useContext } from "react";
-import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
 import Cursor from "../Cursor";
 import { AnimatePresence, motion } from "framer-motion";
+import ArrowRightUp from "../svg/ArrowRightUp";
 
 const ProjectCard = ({ project }: any) => {
     const { cursorType } = useContext(CursorContext);
     const { cursorChangeHandler } = useContext(CursorContext);
 
-    const cursorElementWidth = 90;
-    const cursorElementHeight = cursorElementWidth;
+    const cursorWidth = 60;
 
     return (
         <>
             <Cursor
                 name="project_card"
-                className="w-[90px] aspect-square flex items-center rounded-full z-[100]"
-                xOffset={getCursorXoffset(cursorElementWidth)}
-                yOffset={getCursorYoffset(cursorElementHeight)}
+                width={cursorWidth}
+                height={cursorWidth}
             >
                 <AnimatePresence>
                     {cursorType === "projectCard" && (
@@ -31,57 +29,13 @@ const ProjectCard = ({ project }: any) => {
                                 },
                             }}
                             exit={{ opacity: 0, scale: 0 }}
-                            className="relative w-full h-full border-0 rounded-full flex items-center justify-center bg-white mix-blend-difference"
+                            className="w-[60px] aspect-square flex items-center rounded-full z-[100] bg-black"
                         >
-                            <svg
-                                width="25px"
-                                height="25px"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="#000000"
-                                className="-mt-1"
-                            >
-                                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                                <g
-                                    id="SVGRepo_tracerCarrier"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                ></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <g id="Complete">
-                                        <g id="arrow-up-right">
-                                            <g>
-                                                <polyline
-                                                    data-name="Right"
-                                                    fill="none"
-                                                    id="Right-2"
-                                                    points="18.7 12.4 18.7 5.3 11.6 5.3"
-                                                    stroke="#000000"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                ></polyline>
-                                                <line
-                                                    fill="none"
-                                                    stroke="#000000"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    x1="5.3"
-                                                    x2="17.1"
-                                                    y1="18.7"
-                                                    y2="6.9"
-                                                ></line>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
+                            <ArrowRightUp className="-mt-1 scale-75" />
                         </motion.div>
                     )}
                 </AnimatePresence>
             </Cursor>
-
             <a
                 className="w-full aspect-[3/4] overflow-hidden relative group rounded-2xl"
                 onMouseEnter={() => {

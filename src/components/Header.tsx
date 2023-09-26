@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { CursorContext } from "../context/CursorContext";
 import Cursor from "./Cursor";
 import { AnimatePresence } from "framer-motion";
-import { getCursorXoffset, getCursorYoffset } from "../lib/helpers";
 
 const Header = () => {
     const { cursorType, cursorChangeHandler } = useContext(CursorContext);
@@ -15,8 +14,9 @@ const Header = () => {
                 <AnimatePresence>
                     {cursorType === "headerLogo" && (
                         <Cursor
-                            xOffset={getCursorXoffset(cursorWidth)}
-                            yOffset={getCursorYoffset(cursorHeight)}
+                            name="menu-button-cursor"
+                            width={cursorWidth}
+                            height={cursorHeight}
                             className="w-[90px] aspect-square flex items-center rounded-full bg-white mix-blend-difference"
                         />
                     )}
@@ -24,9 +24,10 @@ const Header = () => {
                 <AnimatePresence>
                     {cursorType === "headerMenuButton" && (
                         <Cursor
-                            xOffset={getCursorXoffset(cursorWidth)}
-                            yOffset={getCursorYoffset(cursorHeight)}
-                            className="w-[90px] aspect-square flex items-center rounded-full bg-sky-950"
+                            name="menu-button-cursor"
+                            width={cursorWidth}
+                            height={cursorHeight}
+                            className="w-[90px] aspect-square flex items-center rounded-full bg-white mix-blend-difference"
                         />
                     )}
                 </AnimatePresence>

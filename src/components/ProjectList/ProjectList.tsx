@@ -2,54 +2,30 @@ import ListItem from "./ListItem";
 import { CursorContext } from "../../context/CursorContext";
 import { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
 import Cursor from "../Cursor";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 
-//Thumbnails
-// import album1thumb from "../../assets/images/DSC00073-min.jpg";
-// import album2thumb from "../../assets/images/DSC00208-min.jpg";
-// import album3thumb from "../../assets/images/DSC00300-min.jpg";
-// import album4thumb from "../../assets/images/DSC00586-min.jpg";
-// import album5thumb from "../../assets/images/GP5-15-min.jpg";
-// import album6thumb from "../../assets/images/GP5-21-min.jpg";
-
-import video1 from "../../assets/images/vid_1.mp4";
-import video2 from "../../assets/images/vid_2.mp4";
+import video1 from "../../assets/videos/vid_1.mp4";
+import video2 from "../../assets/videos/vid_2.mp4";
+import video3 from "../../assets/videos/vid_3.mp4";
+import video4 from "../../assets/videos/vid_4.mp4";
+import video5 from "../../assets/videos/vid_5.mp4";
+import video6 from "../../assets/videos/vid_6.mp4";
 
 const ProjectList = () => {
     const { cursorType } = useContext(CursorContext);
     const { cursorChangeHandler } = useContext(CursorContext);
-    const [activePhotoAlbumHover, setActivePhotoAlbumHover] = useState(-1);
+
+    const [activeListItemHover, setListItemHover] = useState(-1);
     const [swiperInstance, setSwiperInstance] = useState<any>(null);
 
-    // const projects = [
-    //     {
-    //         title: "Photo Album 1",
-    //         thumbnail: album1thumb,
-    //     },
-    //     {
-    //         title: "Photo Album 2",
-    //         thumbnail: album2thumb,
-    //     },
-    //     {
-    //         title: "Photo Album 3",
-    //         thumbnail: album3thumb,
-    //     },
-    //     {
-    //         title: "Photo Album 4",
-    //         thumbnail: album4thumb,
-    //     },
-    //     {
-    //         title: "Photo Album 5",
-    //         thumbnail: album5thumb,
-    //     },
-    //     {
-    //         title: "Photo Album 6",
-    //         thumbnail: album6thumb,
-    //     },
-    // ];
+    // The useEffect hook to set the Swiper instance when it's available
+    useEffect(() => {
+        if (swiperInstance && activeListItemHover >= 0) {
+            swiperInstance.slideTo(activeListItemHover, 600);
+        }
+    }, [activeListItemHover, swiperInstance]);
 
     const projects = [
         {
@@ -61,20 +37,20 @@ const ProjectList = () => {
             video: video2,
         },
         {
-            title: "Video 1",
-            video: video1,
+            title: "Video 3",
+            video: video3,
         },
         {
-            title: "Video 2",
-            video: video2,
+            title: "Video 4",
+            video: video4,
         },
         {
-            title: "Video 1",
-            video: video1,
+            title: "Video 5",
+            video: video5,
         },
         {
-            title: "Video 2",
-            video: video2,
+            title: "Video 6",
+            video: video6,
         },
     ];
 
@@ -96,13 +72,6 @@ const ProjectList = () => {
         },
     };
 
-    // The useEffect hook to set the Swiper instance when it's available
-    useEffect(() => {
-        if (swiperInstance && activePhotoAlbumHover >= 0) {
-            swiperInstance.slideTo(activePhotoAlbumHover, 600);
-        }
-    }, [activePhotoAlbumHover, swiperInstance]);
-
     //Cursor element dimensions
     const cursorElementWidth = 550;
     const cursorElementHeight = 350;
@@ -120,9 +89,9 @@ const ProjectList = () => {
             <div className="container">
                 <Cursor
                     name="project_list"
-                    className={`w-[550px] h-[350px] rounded-xl overflow-hidden`}
-                    xOffset={getCursorXoffset(cursorElementWidth)}
-                    yOffset={getCursorYoffset(cursorElementHeight)}
+                    width={cursorElementWidth}
+                    height={cursorElementHeight}
+                    className={`rounded-xl overflow-hidden`}
                     easingDuration={0.3}
                 >
                     <AnimatePresence>
@@ -140,7 +109,7 @@ const ProjectList = () => {
                                     spaceBetween={0}
                                     slidesPerView={1}
                                     direction={"vertical"}
-                                    initialSlide={activePhotoAlbumHover}
+                                    initialSlide={activeListItemHover}
                                     onSwiper={(swiper) =>
                                         setSwiperInstance(swiper)
                                     }
@@ -152,12 +121,6 @@ const ProjectList = () => {
                                                 key={index}
                                                 className="relative w-full h-full"
                                             >
-                                                {/* <img
-                                                    src={project?.thumbnail}
-                                                    alt="photo_album_thumbnail"
-                                                    loading="lazy"
-                                                    className="absolute left-0 top-0 w-full h-full object-cover"
-                                                /> */}
                                                 <video
                                                     width="100%"
                                                     height="100%"
@@ -186,7 +149,7 @@ const ProjectList = () => {
                             key={index}
                             onMouseEnter={() => {
                                 handleMouseEnter("overListItem"),
-                                    setActivePhotoAlbumHover(index);
+                                    setListItemHover(index);
                             }}
                             onMouseLeave={handleMouseLeave}
                         />
