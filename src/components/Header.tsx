@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import { CursorContext } from "../context/CursorContext";
-import Cursor from "./Cursor";
-import { AnimatePresence } from "framer-motion";
+import { CursorContext } from "./Cursor/CursorContext";
+import Cursor from "./Cursor/Cursor";
 
 const Header = () => {
     const { cursorType, cursorChangeHandler } = useContext(CursorContext);
@@ -11,26 +10,25 @@ const Header = () => {
     return (
         <header className="h-[150px]">
             <div className="px-14 h-full flex items-center justify-between">
-                <AnimatePresence>
-                    {cursorType === "headerLogo" && (
-                        <Cursor
-                            name="menu-button-cursor"
-                            width={cursorWidth}
-                            height={cursorHeight}
-                            className="w-[90px] aspect-square flex items-center rounded-full bg-white mix-blend-difference"
-                        />
-                    )}
-                </AnimatePresence>
-                <AnimatePresence>
-                    {cursorType === "headerMenuButton" && (
-                        <Cursor
-                            name="menu-button-cursor"
-                            width={cursorWidth}
-                            height={cursorHeight}
-                            className="w-[90px] aspect-square flex items-center rounded-full bg-white mix-blend-difference"
-                        />
-                    )}
-                </AnimatePresence>
+                {cursorType === "headerLogo" && (
+                    <Cursor
+                        name="menu-button-cursor"
+                        width={cursorWidth}
+                        height={cursorHeight}
+                    >
+                        <div className="w-[90px] aspect-square flex items-center rounded-full bg-lime-800 mix-blend-difference" />
+                    </Cursor>
+                )}
+
+                {cursorType === "headerMenuButton" && (
+                    <Cursor
+                        name="menu-button-cursor"
+                        width={cursorWidth}
+                        height={cursorHeight}
+                        className="w-[90px] aspect-square flex items-center rounded-full bg-sky-700 mix-blend-difference"
+                    />
+                )}
+
                 <h3
                     onMouseEnter={() => cursorChangeHandler("headerLogo")}
                     onMouseLeave={() => cursorChangeHandler("")}

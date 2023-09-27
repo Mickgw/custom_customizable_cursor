@@ -1,8 +1,8 @@
 import ListItem from "./ListItem";
-import { CursorContext } from "../../context/CursorContext";
+import { CursorContext } from "../Cursor/CursorContext";
 import { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Cursor from "../Cursor";
+import Cursor from "../Cursor/Cursor";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import useMousePosition from "../hooks/useMousePosition";
+import useMousePosition from "../../hooks/useMousePosition";
 import { gsap } from "gsap";
-import { getCursorXoffset, getCursorYoffset } from "../lib/helpers";
+import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
 
 interface CursorProps {
     name: string; //required
@@ -9,6 +9,7 @@ interface CursorProps {
     height: number; //required
     zIndex?: number;
     style?: React.CSSProperties;
+    ease?: Array<number>;
     easingDuration?: number;
     children?: React.ReactNode;
     className?: string;
@@ -20,28 +21,39 @@ const Cursor: React.FC<CursorProps> = ({
     height,
     zIndex,
     style,
+    ease,
     easingDuration,
     children,
     className,
 }: CursorProps) => {
     const { x, y } = useMousePosition();
     const cursorRef = useRef<HTMLDivElement | null>(null);
-    const easingDurationFinal = easingDuration ? easingDuration : 0.2;
     const xOffset = getCursorXoffset(width as number);
     const yOffset = getCursorYoffset(height as number);
 
     useEffect(() => {
         if (!cursorRef.current) return;
 
-        const tl = gsap.timeline();
+        const updateCursor = () => {
+            const newX = x + xOffset;
+            const newY = y + yOffset;
 
-        tl.set(cursorRef.current, {
-            x: x + xOffset,
-            y: y + yOffset,
-        });
+            if (cursorRef.current) {
+                gsap.to(cursorRef.current, {
+                    x: newX,
+                    y: newY,
+                    duration: easingDuration ? easingDuration : 0.4,
+                    ease: ease
+                        ? `cubic-bezier(${ease})`
+                        : "cubic-bezier(0.05,0.03,0.3,0.96)",
+                });
+            }
+        };
+
+        const animationFrameId = requestAnimationFrame(updateCursor);
 
         return () => {
-            tl.kill();
+            cancelAnimationFrame(animationFrameId);
         };
     }, [x, y, xOffset, yOffset]);
 
@@ -60,7 +72,6 @@ const Cursor: React.FC<CursorProps> = ({
                 top: 0,
                 width: width + "px",
                 height: height + "px",
-                transition: `${easingDurationFinal}s cubic-bezier(0.05,0.03,0.3,0.96)`,
                 ...style,
             }}
             className={`cursor_${name ? `${name}_` : ""} ${

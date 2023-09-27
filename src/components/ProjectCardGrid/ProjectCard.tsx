@@ -1,6 +1,6 @@
-import { CursorContext } from "../../context/CursorContext";
+import { CursorContext } from "../Cursor/CursorContext";
 import { useContext } from "react";
-import Cursor from "../Cursor";
+import Cursor from "../Cursor/Cursor";
 import { AnimatePresence, motion } from "framer-motion";
 import ArrowRightUp from "../svg/ArrowRightUp";
 
@@ -16,6 +16,8 @@ const ProjectCard = ({ project }: any) => {
                 name="project_card"
                 width={cursorWidth}
                 height={cursorWidth}
+                zIndex={20}
+                easingDuration={0.6}
             >
                 <AnimatePresence>
                     {cursorType === "projectCard" && (
@@ -29,7 +31,7 @@ const ProjectCard = ({ project }: any) => {
                                 },
                             }}
                             exit={{ opacity: 0, scale: 0 }}
-                            className="w-[60px] aspect-square flex items-center rounded-full z-[100] bg-black"
+                            className="w-[60px] aspect-square flex items-center justify-center rounded-full z-[100] bg-white mix-blend-difference"
                         >
                             <ArrowRightUp className="-mt-1 scale-75" />
                         </motion.div>

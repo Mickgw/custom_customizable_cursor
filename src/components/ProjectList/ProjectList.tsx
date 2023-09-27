@@ -1,8 +1,8 @@
 import ListItem from "./ListItem";
-import { CursorContext } from "../../context/CursorContext";
+import { CursorContext } from "../Cursor/CursorContext";
 import { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Cursor from "../Cursor";
+import Cursor from "../Cursor/Cursor";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 
@@ -92,7 +92,8 @@ const ProjectList = () => {
                     width={cursorElementWidth}
                     height={cursorElementHeight}
                     className={`rounded-xl overflow-hidden`}
-                    easingDuration={0.3}
+                    ease={[0.65, 0, 0.35, 1]}
+                    easingDuration={0.75}
                 >
                     <AnimatePresence>
                         {cursorType === "overListItem" && (
