@@ -1,7 +1,13 @@
 import { useEffect, useRef } from "react";
 import useMousePosition from "../../hooks/useMousePosition";
 import { gsap } from "gsap";
-import { getCursorXoffset, getCursorYoffset } from "../../lib/helpers";
+import {
+    getClassname,
+    getCursorXoffset,
+    getCursorYoffset,
+    getEasingDuration,
+    getEasingValues,
+} from "./lib/helpers";
 
 interface CursorProps {
     name: string; //required
@@ -28,32 +34,22 @@ const Cursor: React.FC<CursorProps> = ({
 }: CursorProps) => {
     const { x, y } = useMousePosition();
     const cursorRef = useRef<HTMLDivElement | null>(null);
+
     const xOffset = getCursorXoffset(width as number);
     const yOffset = getCursorYoffset(height as number);
 
     useEffect(() => {
         if (!cursorRef.current) return;
 
-        const updateCursor = () => {
-            const newX = x + xOffset;
-            const newY = y + yOffset;
+        const tl = gsap.timeline();
 
-            if (cursorRef.current) {
-                gsap.to(cursorRef.current, {
-                    x: newX,
-                    y: newY,
-                    duration: easingDuration ? easingDuration : 0.4,
-                    ease: ease
-                        ? `cubic-bezier(${ease})`
-                        : "cubic-bezier(0.05,0.03,0.3,0.96)",
-                });
-            }
-        };
-
-        const animationFrameId = requestAnimationFrame(updateCursor);
+        tl.set(cursorRef.current, {
+            x: x + xOffset,
+            y: y + yOffset,
+        });
 
         return () => {
-            cancelAnimationFrame(animationFrameId);
+            tl.kill();
         };
     }, [x, y, xOffset, yOffset]);
 
@@ -70,13 +66,14 @@ const Cursor: React.FC<CursorProps> = ({
                 zIndex: zIndex,
                 left: 0,
                 top: 0,
-                width: width + "px",
-                height: height + "px",
+                width: `${width}px`,
+                height: `${height}px`,
+                transition: `${getEasingDuration(
+                    easingDuration as number
+                )}s cubic-bezier(${getEasingValues(ease as Array<number>)})`,
                 ...style,
             }}
-            className={`cursor_${name ? `${name}_` : ""} ${
-                className && className
-            }`}
+            className={`cursor_${name} ${getClassname(className as string)}`}
         >
             {children}
         </div>

@@ -1,4 +1,4 @@
-import { CursorContext } from "../Cursor/CursorContext";
+import { CursorContext } from "../Cursor/context/CursorContext";
 import { useContext } from "react";
 import Cursor from "../Cursor/Cursor";
 import { AnimatePresence, motion } from "framer-motion";
@@ -17,7 +17,7 @@ const ProjectCard = ({ project }: any) => {
                 width={cursorWidth}
                 height={cursorWidth}
                 zIndex={20}
-                easingDuration={0.6}
+                easingDuration={0.45}
             >
                 <AnimatePresence>
                     {cursorType === "projectCard" && (

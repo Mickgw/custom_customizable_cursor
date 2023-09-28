@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CursorContext } from "./Cursor/CursorContext";
+import { CursorContext } from "./Cursor/context/CursorContext";
 import Cursor from "./Cursor/Cursor";
 
 const Header = () => {

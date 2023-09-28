@@ -1,5 +1,5 @@
 import ListItem from "./ListItem";
-import { CursorContext } from "../Cursor/CursorContext";
+import { CursorContext } from "../Cursor/context/CursorContext";
 import { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Cursor from "../Cursor/Cursor";
