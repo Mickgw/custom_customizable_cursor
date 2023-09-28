@@ -7,7 +7,6 @@ import CursorContextProvider from "./components/Cursor/context/CursorContext.tsx
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <CursorContextProvider>
-            {" "}
             <App />
         </CursorContextProvider>
     </React.StrictMode>

@@ -1,26 +1,31 @@
 import { useEffect, useRef } from "react";
-import useMousePosition from "../../hooks/useMousePosition";
-import { gsap } from "gsap";
+import useMousePosition from "./hooks/useMousePosition";
 import {
-    getClassname,
-    getCursorXoffset,
-    getCursorYoffset,
-    getEasingDuration,
-    getEasingValues,
+    setClassname,
+    setCursorXoffset,
+    setCursorYoffset,
+    setEasingDuration,
+    setEasingValues,
+    setXandYposition,
 } from "./lib/helpers";
+import { CursorPositionProps, CursorProps } from "./lib/props";
 
-interface CursorProps {
-    name: string; //required
-    width: number; //required
-    height: number; //required
-    zIndex?: number;
-    style?: React.CSSProperties;
-    ease?: Array<number>;
-    easingDuration?: number;
-    children?: React.ReactNode;
-    className?: string;
-}
-
+/**
+ * Custom cursor component that follows the mouse cursor's position.
+ *
+ * @component
+ * @param {Object} props - The props for the Cursor component.
+ * @param {string} props.name - The name of the cursor.
+ * @param {number} props.width - The width of the cursor.
+ * @param {number} props.height - The height of the cursor.
+ * @param {number} props.zIndex - The z-index of the cursor.
+ * @param {Object} props.style - Additional inline CSS styles for the cursor.
+ * @param {Array<number>} props.ease - An array representing easing values for cursor transitions.
+ * @param {number} props.easingDuration - The duration of the cursor's transition.
+ * @param {React.ReactNode} props.children - Content to be rendered inside the cursor.
+ * @param {string} props.className - Additional CSS class names for the cursor.
+ * @returns {React.ReactNode|null} The Cursor component.
+ */
 const Cursor: React.FC<CursorProps> = ({
     name,
     width,
@@ -35,22 +40,17 @@ const Cursor: React.FC<CursorProps> = ({
     const { x, y } = useMousePosition();
     const cursorRef = useRef<HTMLDivElement | null>(null);
 
-    const xOffset = getCursorXoffset(width as number);
-    const yOffset = getCursorYoffset(height as number);
+    const xOffset = setCursorXoffset(width as number);
+    const yOffset = setCursorYoffset(height as number);
 
     useEffect(() => {
-        if (!cursorRef.current) return;
-
-        const tl = gsap.timeline();
-
-        tl.set(cursorRef.current, {
-            x: x + xOffset,
-            y: y + yOffset,
-        });
-
-        return () => {
-            tl.kill();
-        };
+        setXandYposition({
+            cursorRef,
+            x,
+            xOffset,
+            y,
+            yOffset,
+        } as CursorPositionProps);
     }, [x, y, xOffset, yOffset]);
 
     if (x === 0 || y === 0) {
@@ -68,12 +68,12 @@ const Cursor: React.FC<CursorProps> = ({
                 top: 0,
                 width: `${width}px`,
                 height: `${height}px`,
-                transition: `${getEasingDuration(
+                transition: `${setEasingDuration(
                     easingDuration as number
-                )}s cubic-bezier(${getEasingValues(ease as Array<number>)})`,
+                )}s cubic-bezier(${setEasingValues(ease as Array<number>)})`,
                 ...style,
             }}
-            className={`cursor_${name} ${getClassname(className as string)}`}
+            className={`cursor_${name} ${setClassname(className as string)}`}
         >
             {children}
         </div>
