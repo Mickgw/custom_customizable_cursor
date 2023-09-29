@@ -1,9 +1,8 @@
 import ListItem from "./ListItem";
 import { CursorContext } from "../Cursor/context/CursorContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Cursor from "../Cursor/Cursor";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 
 import video1 from "../../assets/videos/vid_1.mp4";
@@ -16,16 +15,7 @@ import video6 from "../../assets/videos/vid_6.mp4";
 const ProjectList = () => {
     const { cursorType } = useContext(CursorContext);
     const { cursorChangeHandler } = useContext(CursorContext);
-
     const [activeListItemHover, setListItemHover] = useState(-1);
-    const [swiperInstance, setSwiperInstance] = useState<any>(null);
-
-    // The useEffect hook to set the Swiper instance when it's available
-    useEffect(() => {
-        if (swiperInstance && activeListItemHover >= 0) {
-            swiperInstance.slideTo(activeListItemHover, 600);
-        }
-    }, [activeListItemHover, swiperInstance]);
 
     const projects = [
         {
@@ -97,46 +87,67 @@ const ProjectList = () => {
                     <AnimatePresence>
                         {cursorType === "overListItem" && (
                             <motion.div
-                                className="relative w-full h-full"
+                                className="relative w-full h-full bg-black"
                                 initial={animationProps.initial}
                                 animate={animationProps.animate}
                                 exit={animationProps.exit}
                             >
-                                <div className="z-20 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-20 aspect-square rounded-full bg-slate-700 text-white tracking-wide flex items-center justify-center">
-                                    view
-                                </div>
-                                <Swiper
-                                    spaceBetween={0}
-                                    slidesPerView={1}
-                                    direction={"vertical"}
-                                    initialSlide={activeListItemHover}
-                                    onSwiper={(swiper) =>
-                                        setSwiperInstance(swiper)
-                                    }
-                                    className="z-10 relative w-full h-full"
-                                >
-                                    {projects.map(
-                                        (project: any, index: number) => (
-                                            <SwiperSlide
+                                {/* <div className="z-20 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-20 aspect-square rounded-full bg-slate-700 text-white tracking-wide flex items-center justify-center">
+                                        view
+                                    </div> */}
+
+                                {projects.map((project: any, index: number) => (
+                                    <AnimatePresence key={index}>
+                                        {index === activeListItemHover && (
+                                            <motion.video
+                                                initial={{ opacity: 0 }}
+                                                animate={{
+                                                    opacity: 1,
+                                                    transition: {
+                                                        duration: 0.5,
+                                                    },
+                                                }}
+                                                exit={{
+                                                    opacity: 0,
+                                                    transition: {
+                                                        duration: 0.5,
+                                                    },
+                                                }}
+                                                width="100%"
+                                                height="100%"
+                                                autoPlay
+                                                muted
+                                                className="absolute inset-0 w-full h-full object-cover"
                                                 key={index}
-                                                className="relative w-full h-full"
                                             >
-                                                <video
-                                                    width="100%"
-                                                    height="100%"
-                                                    autoPlay
-                                                    muted
-                                                    className="absolute inset-0 w-full h-full object-cover"
-                                                >
-                                                    <source
-                                                        src={project?.video}
-                                                        type="video/mp4"
-                                                    ></source>
-                                                </video>
-                                            </SwiperSlide>
-                                        )
-                                    )}
-                                </Swiper>
+                                                <source
+                                                    src={project?.video}
+                                                    type="video/mp4"
+                                                ></source>
+                                            </motion.video>
+                                        )}
+                                    </AnimatePresence>
+                                ))}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </Cursor>
+
+                <Cursor
+                    name="cursor_inside_project"
+                    width={80}
+                    height={80}
+                    easingDuration={0.55}
+                >
+                    <AnimatePresence>
+                        {cursorType === "overListItem" && (
+                            <motion.div
+                                initial={animationProps.initial}
+                                animate={animationProps.animate}
+                                exit={animationProps.exit}
+                                className="bg-white w-full h-full font-semibold flex items-center justify-center rounded-full text-black"
+                            >
+                                view
                             </motion.div>
                         )}
                     </AnimatePresence>
