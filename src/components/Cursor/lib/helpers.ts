@@ -1,7 +1,6 @@
 import { gsap } from "gsap";
 import { CursorPositionProps } from "./props";
 
-
 /**
  * Calculates the horizontal offset needed to center a cursor horizontally.
  *
@@ -109,4 +108,5 @@ export function setXandYposition({cursorRef, x, xOffset, y, yOffset } : CursorPo
         tl.kill();
     };
 }
+
 
