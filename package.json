@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "@motionone/utils": "^10.16.3",
     "@studio-freight/react-lenis": "^0.0.30",
     "aos": "^2.3.4",
     "framer-motion": "^10.12.18",

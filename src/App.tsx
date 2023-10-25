@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import MarqueeOnScrollChange from "./components/MarqueeOnScrollChange/MarqueeOnScrollChange";
 
 function App() {
     useEffect(() => {
@@ -37,6 +38,15 @@ function App() {
                         allowing your cursor dreams to run wild!
                     </h2>
                 </div>
+
+                <div className="py-40">
+                    <MarqueeOnScrollChange name="test-marquee" speed={10}>
+                        <h1 style={{ fontSize: "100px" }}>
+                            MarqueeOnScrollChange
+                        </h1>
+                    </MarqueeOnScrollChange>
+                </div>
+
                 <ProjectList />
                 <ProjectCardGrid />
             </main>
