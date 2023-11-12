@@ -12,14 +12,17 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@motionone/utils": "^10.16.3",
+    "@react-hook/window-size": "^3.1.1",
     "@studio-freight/react-lenis": "^0.0.30",
     "aos": "^2.3.4",
     "framer-motion": "^10.12.18",
     "gsap": "^3.12.2",
     "jsdoc": "^4.0.2",
+    "normalize-wheel": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.5.2",
+    "react-use": "^17.4.0",
     "sass": "^1.63.6",
     "swiper": "^10.0.4"
   },

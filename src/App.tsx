@@ -8,7 +8,8 @@ import { useEffect } from "react";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import MarqueeOnScrollChange from "./components/MarqueeOnScrollChange/MarqueeOnScrollChange";
+import InteractiveMarquee from "./components/InteractiveMarquee/InteractiveMarquee";
+import InteractiveMarqueeOld from "./components/InteractiveMarqueeOld/InteractiveMarqueeOld";
 
 function App() {
     useEffect(() => {
@@ -39,12 +40,15 @@ function App() {
                     </h2>
                 </div>
 
-                <div className="py-40">
-                    <MarqueeOnScrollChange name="test-marquee" speed={10}>
-                        <h1 style={{ fontSize: "100px" }}>
-                            MarqueeOnScrollChange
+                <div className="flex py-40">
+                    <InteractiveMarquee baseVelocity={5}>
+                        <h1 className="text-[15vh]">
+                            This is the InteractiveMarquee
                         </h1>
-                    </MarqueeOnScrollChange>
+                        <h1 className="text-[15vh]">
+                            This is the InteractiveMarquee
+                        </h1>
+                    </InteractiveMarquee>
                 </div>
 
                 <ProjectList />
