@@ -21,3 +21,8 @@ export function getSkewDirection(direction : number, amount : number) {
 
     return skewDirection;
 }
+
+export const getWrap = (min: number, max: number, v: number) => {
+    const rangeSize = max - min;
+    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
+};

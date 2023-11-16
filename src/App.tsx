@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import InteractiveMarquee from "./components/InteractiveMarquee/InteractiveMarquee";
-import InteractiveMarqueeOld from "./components/InteractiveMarqueeOld/InteractiveMarqueeOld";
 
 function App() {
     useEffect(() => {
@@ -41,10 +40,7 @@ function App() {
                 </div>
 
                 <div className="flex py-40">
-                    <InteractiveMarquee baseVelocity={5}>
-                        <h1 className="text-[15vh]">
-                            This is the InteractiveMarquee
-                        </h1>
+                    <InteractiveMarquee speed={5}>
                         <h1 className="text-[15vh]">
                             This is the InteractiveMarquee
                         </h1>

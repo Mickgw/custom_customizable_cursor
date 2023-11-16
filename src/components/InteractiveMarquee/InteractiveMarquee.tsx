@@ -1,53 +1,66 @@
+// Framer Motion imports
 import {
-    motion,
     useMotionValue,
     useVelocity,
     useScroll,
     useSpring,
     useTransform,
-    useAnimation,
     useAnimationFrame,
 } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
-import MarqueeItem from "./MarqueeItem";
+
+import { useState } from "react";
+//  Helpers
+import { getSkewAmount, getSkewDirection, getWrap } from "./lib/helpers";
+
+//  Props
+import { InteractiveMarqueeProps } from "./lib/props";
+
+//  Consts
 import {
-    getSkewAmount,
-    getSkewDirection,
-} from "../InteractiveMarqueeOld/lib/helpers";
+    InteractiveMarqueeStyles,
+    InteractiveMarqueeDefaultParamValues,
+} from "./lib/consts";
 
-interface InteractiveMarqueeProps {
-    children: React.ReactNode;
-    baseVelocity?: number;
-}
-
-const wrap = (min: number, max: number, v: number) => {
-    const rangeSize = max - min;
-    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
-};
+//  Components
+import MarqueeItem from "./MarqueeItem";
 
 const InteractiveMarquee = ({
     children,
-    baseVelocity = 100,
+    skew = true,
+    skewStrength = InteractiveMarqueeDefaultParamValues?.skewStrength,
+    speed = InteractiveMarqueeDefaultParamValues?.speed,
+    movementDamping = InteractiveMarqueeDefaultParamValues?.movementDamping,
+    movementStiffness = InteractiveMarqueeDefaultParamValues?.movementStiffness,
+    scrollMovementSpeed = InteractiveMarqueeDefaultParamValues?.scrollMovementSpeed,
 }: InteractiveMarqueeProps) => {
+    // Motion values for animation
     const baseX = useMotionValue(0);
+    const cloneX = useMotionValue(0);
     const { scrollY } = useScroll();
     const scrollVelocity = useVelocity(scrollY);
     const smoothVelocity = useSpring(scrollVelocity, {
-        damping: 50,
-        stiffness: 400,
+        damping: movementDamping,
+        stiffness: movementStiffness,
     });
-    const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
-        clamp: false,
-    });
+    const velocityFactor = useTransform(
+        smoothVelocity,
+        [0, 1000],
+        [0, scrollMovementSpeed],
+        {
+            clamp: false,
+        }
+    );
 
-    const [direction, setDirection] = useState(1); // 1 for right, -1 for left
+    // State for managing direction of movement
+    const [direction, setDirection] = useState(1);
 
-    const x = useTransform(baseX, (v) => `${wrap(-20, -100, v)}%`);
+    // Transformation for the main and clone elements
+    const xMain = useTransform(baseX, (v) => `${getWrap(-100, 100, v)}%`);
+    const xClone = useTransform(cloneX, (v) => `${getWrap(-200, 0, v)}%`);
 
-    const controls = useAnimation();
-
+    // Animation frame for continuous movement
     useAnimationFrame((_, delta) => {
-        let moveBy = direction * baseVelocity * (delta / 1000);
+        let moveBy = direction * speed * (delta / 1000);
 
         if (velocityFactor.get() < 0) {
             setDirection(-1);
@@ -57,26 +70,59 @@ const InteractiveMarquee = ({
 
         moveBy += direction * moveBy * velocityFactor.get();
 
+        // Update baseX value
         baseX.set(baseX.get() + moveBy);
+
+        // Update cloneX value (you can adjust the factor as needed)
+        cloneX.set(cloneX.get() + moveBy);
+
+        // Check if marquee has reached the end and reset position
+        const viewportWidth = window.innerWidth;
+
+        if (baseX.get() > viewportWidth) {
+            baseX.set(-viewportWidth);
+        } else if (baseX.get() < -viewportWidth) {
+            baseX.set(viewportWidth);
+        }
+
+        if (cloneX.get() > viewportWidth) {
+            cloneX.set(-viewportWidth);
+        } else if (cloneX.get() < -viewportWidth) {
+            cloneX.set(viewportWidth);
+        }
     });
 
-    const skew = useTransform(
+    // Skew transformation based on velocity
+    const marqueeSkewStrength = useTransform(
         velocityFactor,
-        getSkewDirection(direction, 20),
-        getSkewAmount(direction, 20)
+        getSkewDirection(direction, skewStrength),
+        getSkewAmount(direction, skewStrength)
     );
 
-    console.log("direction = ", direction);
-
     return (
-        <div className="parallax flex flex-nowrap whitespace-nowrap">
-            <motion.div
-                className="scroller flex flex-nowrap wyFactor.genowrap"
-                style={{ x, skewX: skew }}
-                animate={controls}
+        <div
+            className="interactive-marquee"
+            style={{
+                ...InteractiveMarqueeStyles,
+            }}
+        >
+            <MarqueeItem
+                name="marquee-item-main"
+                x={xMain}
+                skewStrength={marqueeSkewStrength}
+                skew={skew}
             >
-                <div className="flex">{children}</div>
-            </motion.div>
+                {children}
+            </MarqueeItem>
+
+            <MarqueeItem
+                name="marquee-item-clone"
+                x={xClone}
+                skewStrength={marqueeSkewStrength}
+                skew={skew}
+            >
+                {children}
+            </MarqueeItem>
         </div>
     );
 };
