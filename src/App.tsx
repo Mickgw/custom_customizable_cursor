@@ -39,7 +39,7 @@ function App() {
                     </h2>
                 </div>
 
-                <div className="flex py-40">
+                <div className="flex py-40 overflow-hidden">
                     <InteractiveMarquee
                         speed={7}
                         gap={65}
