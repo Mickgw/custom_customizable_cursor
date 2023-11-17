@@ -6,13 +6,19 @@ const MarqueeItem = ({
     skew,
     skewStrength,
     children,
+    spacing,
 }: MarqueeItemProps) => {
     const controls = useAnimation();
 
     return (
         <motion.div
             id={name}
-            style={{ x: x, ...(skew ? { skewX: skewStrength } : {}) }}
+            className="marquee-item"
+            style={{
+                x: x,
+                ...(skew ? { skewX: skewStrength } : {}),
+                paddingRight: `${spacing}px`,
+            }}
             animate={controls}
         >
             {children}

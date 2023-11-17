@@ -23,7 +23,7 @@ function App() {
         <ReactLenis
             root
             options={{
-                duration: 1,
+                duration: 0.85,
             }}
         >
             <Header />
@@ -40,9 +40,14 @@ function App() {
                 </div>
 
                 <div className="flex py-40">
-                    <InteractiveMarquee speed={5}>
+                    <InteractiveMarquee
+                        speed={7}
+                        gap={65}
+                        skewStrength={200}
+                        dragStrength={0.1}
+                    >
                         <h1 className="text-[15vh]">
-                            This is the InteractiveMarquee
+                            - This is the InteractiveMarquee
                         </h1>
                     </InteractiveMarquee>
                 </div>
