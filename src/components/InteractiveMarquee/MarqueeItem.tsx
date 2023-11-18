@@ -13,7 +13,7 @@ const MarqueeItem = ({
     return (
         <motion.div
             id={name}
-            className="marquee-item"
+            className="interactive-marquee-item"
             style={{
                 x: x,
                 ...(skew ? { skewX: skewStrength } : {}),

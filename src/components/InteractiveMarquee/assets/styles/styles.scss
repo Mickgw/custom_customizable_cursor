@@ -2,14 +2,20 @@
     display: flex;
     flex-wrap: nowrap;
     white-space: nowrap;
+    will-change: transform;
 }
 
 .interactive-marquee-wrapper {
     display: flex;
+    will-change: transform;
 
     &.draggable {
         &:hover {
             cursor: grab;
         }
     }
+}
+
+.interactive-marquee-item {
+    will-change: transform;
 }

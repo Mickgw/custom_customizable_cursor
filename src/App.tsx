@@ -46,7 +46,7 @@ function App() {
                         skewStrength={200}
                         dragStrength={0.1}
                     >
-                        <h1 className="text-[15vh]">
+                        <h1 className="text-[10vh]">
                             - This is the InteractiveMarquee
                         </h1>
                     </InteractiveMarquee>
