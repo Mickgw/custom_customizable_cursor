@@ -2,31 +2,30 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import ProjectCardGrid from "./components/ProjectCardGrid/ProjectCardGrid";
 import ProjectList from "./components/ProjectList/ProjectList";
-// import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
-// import AOS from "aos";
+import AOS from "aos";
 import "aos/dist/aos.css";
 import InteractiveMarquee from "./components/InteractiveMarquee/InteractiveMarquee";
 
 function App() {
-    // useEffect(() => {
-    //     AOS.init();
-    // }, []);
+    useEffect(() => {
+        AOS.init();
+    }, []);
 
-    // useLenis(({}: any) => {
-    //     // called every scroll
-    // });
+    useLenis(({}: any) => {
+        // called every scroll
+    });
 
     return (
-        // <ReactLenis
-        //     root
-        //     options={{
-        //         duration: 0.85,
-        //     }}
-        // >
-        <>
+        <ReactLenis
+            root
+            options={{
+                duration: 0.85,
+            }}
+        >
             <Header />
             <main>
                 <div className="container pt-32">
@@ -40,7 +39,7 @@ function App() {
                     </h2>
                 </div>
 
-                <div className="flex py-40 overflow-hidden">
+                <div className="w-full flex py-40 overflow-hidden">
                     <InteractiveMarquee
                         speed={7}
                         gap={65}
@@ -57,9 +56,7 @@ function App() {
                 <ProjectCardGrid />
             </main>
             <Footer />
-        </>
-
-        // </ReactLenis>
+        </ReactLenis>
     );
 }
 
