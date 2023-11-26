@@ -2,6 +2,9 @@ export interface InteractiveMarqueeProps {
     // Required: The content to be displayed within the marquee
     children: React.ReactNode;
 
+    // Optional: Direction of the marquee
+    initialDirection?: string;
+
     // Optional: Speed of the marquee animation
     speed?: number;
 
@@ -31,6 +34,9 @@ export interface InteractiveMarqueeProps {
     
     // Optional: Log all values of the marquee
     logPropsValues?: boolean;
+
+    // Optional: Log all values of the marquee
+    className?: string;
 }
 
 

@@ -14,6 +14,11 @@ const ProjectCard = ({ project }: any) => {
                 cursorChangeHandler("");
             }}
             data-aos="fade-up"
+            onClick={() =>
+                alert(
+                    "Ja, er ziet hier helaas geen link achter, helaas pindakaas"
+                )
+            }
         >
             <div className="relative w-full h-full">
                 <img

@@ -18,33 +18,33 @@ const ProjectCardGrid = () => {
 
     const projects = [
         {
-            title: "Project title",
+            title: "Project 1",
             thumbnail: projectthumb,
         },
         {
-            title: "Project title",
+            title: "Project 2",
             thumbnail: projectthumb,
         },
         {
-            title: "Project title",
+            title: "Project 3",
             thumbnail: projectthumb,
         },
         {
-            title: "Project title",
+            title: "Project 4",
             thumbnail: projectthumb,
         },
         {
-            title: "Project title",
+            title: "Project 5",
             thumbnail: projectthumb,
         },
         {
-            title: "Project title",
+            title: "Project 6",
             thumbnail: projectthumb,
         },
     ];
 
     return (
-        <div id="project_list" className="mt-32" ref={ref}>
+        <div id="project_list" ref={ref}>
             {inView && (
                 <Cursor
                     name="project_card"
@@ -74,12 +74,10 @@ const ProjectCardGrid = () => {
                 </Cursor>
             )}
 
-            <div className="container py-32">
-                <div className="grid grid-cols-2 gap-x-8 gap-y-20 relative">
-                    {projects?.map((project, index) => {
-                        return <ProjectCard project={project} key={index} />;
-                    })}
-                </div>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-20 relative">
+                {projects?.map((project, index) => {
+                    return <ProjectCard project={project} key={index} />;
+                })}
             </div>
         </div>
     );

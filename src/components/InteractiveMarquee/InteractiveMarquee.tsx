@@ -10,7 +10,9 @@ import {
 } from "framer-motion";
 import { useState } from "react";
 import {
+    getClassname,
     getLogOfPropsValues,
+    getMarqueeDirection,
     getSkewAmount,
     getSkewDirection,
     getWrap,
@@ -23,6 +25,7 @@ import "./assets/styles/styles.scss";
 // Define the InteractiveMarquee component
 const InteractiveMarquee = ({
     children,
+    initialDirection = InteractiveMarqueeDefaultPropValues?.initialDirection,
     draggable = InteractiveMarqueeDefaultPropValues?.draggable,
     skew = InteractiveMarqueeDefaultPropValues?.skew,
     speed = InteractiveMarqueeDefaultPropValues?.speed,
@@ -33,6 +36,7 @@ const InteractiveMarquee = ({
     movementStiffness = InteractiveMarqueeDefaultPropValues?.movementStiffness,
     scrollMovementSpeed = InteractiveMarqueeDefaultPropValues?.scrollMovementSpeed,
     logPropsValues = InteractiveMarqueeDefaultPropValues?.logPropsValues,
+    className,
 }: InteractiveMarqueeProps) => {
     // Define motion values for the main and clone marquee items
     const baseX = useMotionValue(0);
@@ -57,26 +61,39 @@ const InteractiveMarquee = ({
     );
 
     // State to track the movement direction and whether dragged out of the viewport
-    const [direction, setDirection] = useState(1);
+    const [marqueeDirection, setMarqueeDirection] = useState(
+        getMarqueeDirection(initialDirection)
+    );
     const [draggedOutOfViewport, setDraggedOutOfViewport] = useState(false);
 
     // Transform main and clone marquee item position based on motion values
-    const xMain = useTransform(baseX, (v) => `${getWrap(-100, 100, v)}%`);
-    const xClone = useTransform(cloneX, (v) => `${getWrap(-200, 0, v)}%`);
+    let xMain;
+    let xClone;
+
+    if (initialDirection === "left") {
+        xMain = useTransform(baseX, (v) => `${getWrap(100, -100, -v)}%`);
+        xClone = useTransform(cloneX, (v) => `${getWrap(0, -200, -v)}%`);
+    } else if (initialDirection === "right") {
+        xMain = useTransform(baseX, (v) => `${getWrap(-100, 100, v)}%`);
+        xClone = useTransform(cloneX, (v) => `${getWrap(-200, 0, v)}%`);
+    }
+
+    // const xMain = useTransform(baseX, (v) => `${getWrap(100, -100, -v)}%`);
+    // const xClone = useTransform(cloneX, (v) => `${getWrap(0, -200, -v)}%`);
 
     // UseAnimationFrame to handle animation logic
     useAnimationFrame((_, delta) => {
-        let moveBy = direction * speed * (delta / 1000);
+        let moveBy = marqueeDirection * speed * (delta / 1000);
 
         // Update direction based on velocity
         if (velocityFactor.get() < 0) {
-            setDirection(-1);
+            setMarqueeDirection(getMarqueeDirection("left"));
         } else if (velocityFactor.get() > 0) {
-            setDirection(1);
+            setMarqueeDirection(getMarqueeDirection("right"));
         }
 
         // Adjust movement by velocity factor
-        moveBy += direction * moveBy * velocityFactor.get();
+        moveBy += marqueeDirection * moveBy * velocityFactor.get();
 
         // Update motion values for main and clone marquee items
         baseX.set(baseX.get() + moveBy);
@@ -103,11 +120,10 @@ const InteractiveMarquee = ({
     // Apply skew effect based on velocity for both main and clone marquee items
     const marqueeSkewStrength = useTransform(
         velocityFactor,
-        getSkewDirection(direction, skewStrength),
-        getSkewAmount(direction, skewStrength)
+        getSkewDirection(marqueeDirection, skewStrength),
+        getSkewAmount(marqueeDirection, skewStrength)
     );
 
-    // Log props values if logPropsValues is true
     getLogOfPropsValues({
         children,
         draggable,
@@ -120,11 +136,11 @@ const InteractiveMarquee = ({
         movementStiffness,
         scrollMovementSpeed,
         logPropsValues,
-    });
+    } as InteractiveMarqueeProps);
 
     return (
         <div
-            className={`interactive-marquee ${
+            className={`interactive-marquee ${getClassname(className)} ${
                 draggedOutOfViewport ? "dragged-out" : ""
             }`}
         >
@@ -139,6 +155,7 @@ const InteractiveMarquee = ({
                     setDraggedOutOfViewport(true);
                 }}
             >
+                {/* {marqueeItems} */}
                 <MarqueeItem
                     name="main"
                     x={xMain}
@@ -163,5 +180,4 @@ const InteractiveMarquee = ({
     );
 };
 
-// Export the InteractiveMarquee component
 export default InteractiveMarquee;

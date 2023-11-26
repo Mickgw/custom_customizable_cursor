@@ -1,4 +1,4 @@
-// Import the InteractiveMarqueeProps type from the props module
+// Imports
 import { InteractiveMarqueeProps } from "./props";
 
 // Function to get the skew amount based on direction and specified amount
@@ -34,6 +34,33 @@ export const getWrap = (min: number, max: number, v: number) => {
     const rangeSize = max - min;
     return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
+
+
+// Function to get marquee direction
+export const getMarqueeDirection = (direction : string) => {
+    let valueForDirecion;
+
+    if(direction === "left") {
+        valueForDirecion = -1;
+    } else {
+        valueForDirecion = 1;
+    }
+
+    return valueForDirecion;
+}
+
+export const getClassname = (className: string | undefined) => {
+    let InteractiveMarqueeClassname;
+
+    if(className !== undefined) {
+        InteractiveMarqueeClassname = className;
+    } else {
+        InteractiveMarqueeClassname = "";
+    }
+
+    return InteractiveMarqueeClassname;
+}
+
 
 // Function to log the values of InteractiveMarqueeProps if logPropsValues is true
 export const getLogOfPropsValues = ({

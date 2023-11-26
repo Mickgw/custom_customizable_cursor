@@ -1,6 +1,7 @@
-// Default parameter values for the InteractiveMarquee component
+
 export const InteractiveMarqueeDefaultPropValues = {
     skew: true,                // Enable skew effect
+    initialDirection: "left",         // Direction of marquee
     draggable: true,           // Enable dragging
     gap: 80,                   // Gap between main and clone marquee items
     speed: 5,                  // Animation speed

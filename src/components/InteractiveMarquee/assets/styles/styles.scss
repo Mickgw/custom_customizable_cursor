@@ -1,4 +1,6 @@
 .interactive-marquee {
+    width: 100%;
+    overflow: hidden;
     display: flex;
     flex-wrap: nowrap;
     white-space: nowrap;
@@ -7,6 +9,7 @@
 
 .interactive-marquee-wrapper {
     display: flex;
+    flex-wrap: nowrap;
     will-change: transform;
 
     &.draggable {

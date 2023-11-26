@@ -12,7 +12,7 @@ const Header = () => {
             <div className="px-14 h-full flex items-center justify-between">
                 {cursorType === "headerLogo" && (
                     <Cursor
-                        name="menu-button-cursor"
+                        name="logo-cursor"
                         width={cursorWidth}
                         height={cursorHeight}
                     >
@@ -32,8 +32,9 @@ const Header = () => {
                 <h3
                     onMouseEnter={() => cursorChangeHandler("headerLogo")}
                     onMouseLeave={() => cursorChangeHandler("")}
+                    className=" text-white mix-blend-difference cursor-pointer"
                 >
-                    <span>customizable cursor</span>
+                    Components Showcase
                 </h3>
                 <div className="flex items-center gap-2">
                     <div
@@ -43,8 +44,8 @@ const Header = () => {
                         }
                         onMouseLeave={() => cursorChangeHandler("")}
                         onClick={() =>
-                            console.log(
-                                "Ja, er gebeurd toch echt niks als je die menu knop blijft klikken man."
+                            alert(
+                                "Ja, er gebeurd toch echt niks als je die menu knop blijft klikken, helaas pindakaas."
                             )
                         }
                     >
